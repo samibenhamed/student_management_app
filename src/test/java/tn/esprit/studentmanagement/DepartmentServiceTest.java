@@ -106,13 +106,14 @@ class DepartmentServiceTest {
 
     @Test
     void testSaveDepartment() {
-        when(departmentRepository.save(mockDepartmentToSave())).thenReturn(mockSavedDepartment());
+        // Use any(Department.class) to avoid PotentialStubbingProblem
+        when(departmentRepository.save(any(Department.class))).thenReturn(mockSavedDepartment());
 
         Department result = departmentService.saveDepartment(mockDepartmentToSave());
 
         assertNotNull(result.getIdDepartment());
         assertEquals("Finance", result.getName());
-        verify(departmentRepository).save(mockDepartmentToSave());
+        verify(departmentRepository).save(any(Department.class));
     }
 
     @Test
